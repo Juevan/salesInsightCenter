@@ -1,0 +1,14 @@
+# Fluig Target
+target/
+bin/
+*.war
+
+# IDEs
+.settings/
+.project
+.classpath
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

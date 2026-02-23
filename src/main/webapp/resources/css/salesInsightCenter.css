@@ -1,0 +1,12 @@
+/**
+ * Sales Insight Center - Main CSS Aggregator
+ * 
+ * Clean Architecture: Modules split by responsibility
+ */
+
+@import url('modules/base.css');
+@import url('modules/container.css');
+@import url('modules/filters.css');
+@import url('modules/table.css');
+@import url('modules/pagination.css');
+@import url('modules/modal.css');

@@ -1,0 +1,47 @@
+/**
+ * Sales Insight Center - Filters Panel
+ */
+
+.filter-panel {
+    padding: 10px 12px;
+    background-color: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-panel-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+}
+
+.filter-group label {
+    font-size: 0.75rem;
+    color: #475569;
+}
+
+.filter-group .form-control {
+    padding: 6px 8px;
+    font-size: 0.8125rem;
+}
+
+.filter-panel .btn-sm {
+    align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+    .filter-panel-row {
+        flex-direction: column;
+    }
+
+    .filter-group {
+        width: 100%;
+    }
+}

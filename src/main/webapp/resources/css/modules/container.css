@@ -1,0 +1,120 @@
+/**
+ * Sales Insight Center - Container & Layout
+ */
+
+.panel.panel-primary {
+    margin-bottom: 0;
+}
+
+.panel-body {
+    padding: 8px 12px !important;
+    contain: layout style;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+}
+
+.search-bar-field {
+    margin: 0;
+    flex: 1 1 180px;
+    min-width: 0;
+}
+
+.search-bar .form-control {
+    width: 100%;
+    padding: 6px 12px;
+    height: 34px !important;
+    box-sizing: border-box;
+}
+
+.search-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.search-bar .btn-icon {
+    width: 34px;
+    height: 34px !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+.search-bar .btn-icon i {
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    line-height: 1;
+}
+
+/* Integração com input-group do Fluig */
+.search-bar .input-group-btn {
+    font-size: 0;
+    /* Remove gap entre botões */
+}
+
+.search-bar .input-group-btn .btn-icon {
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.cache-info {
+    padding: 4px 12px 8px;
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        padding: 8px 10px;
+        gap: 8px;
+    }
+
+    .search-bar-field {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .search-bar-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .panel-body {
+        padding: 6px 8px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar {
+        padding: 6px 8px;
+    }
+
+    .search-bar .btn-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+    }
+
+    .search-bar .form-control {
+        height: 32px;
+    }
+}

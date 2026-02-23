@@ -1,0 +1,62 @@
+/**
+ * Sales Insight Center - Pagination Controls
+ */
+
+.divPagination {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.pages {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 4px;
+}
+
+.pages li {
+    display: inline-block;
+}
+
+.pages li a {
+    display: block;
+    padding: 5px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.8125rem;
+    color: #4b5563;
+    background-color: #fff;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.pages li a:hover {
+    border-color: #d1d5db;
+    background-color: #f9fafb;
+}
+
+.pages li.disabled a {
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.pages li.disabled a:hover {
+    cursor: not-allowed;
+    border-color: #e5e7eb;
+    background-color: #fff;
+}
+
+.pages li.active a {
+    font-weight: 500;
+    background-color: #16325C;
+    border-color: #16325C;
+    color: #fff;
+    cursor: default;
+}
+
+.active a {
+    font-weight: bold;
+    text-decoration: none;
+}
