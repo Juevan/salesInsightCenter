@@ -11,7 +11,7 @@
 
 #datasetBody .table {
     width: 100%;
-    min-width: 1000px;
+    min-width: 1350px;
     /* Garante que as colunas não fiquem espremidas */
     margin-bottom: 4px;
     table-layout: fixed;
@@ -56,7 +56,17 @@
 }
 
 .col-cliente {
-    width: 400px;
+    width: 350px;
+}
+
+.col-unidade-vendidas {
+    width: 105px;
+    text-align: center;
+}
+
+.col-total {
+    width: 130px;
+    text-align: right;
 }
 
 .col-processo {

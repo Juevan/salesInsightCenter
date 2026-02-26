@@ -60,6 +60,26 @@
             var h = ("0" + d.getHours()).slice(-2);
             var m = ("0" + d.getMinutes()).slice(-2);
             return day + "/" + month + "/" + year + " " + h + ":" + m;
+        },
+
+        /**
+         * Formata valor numérico para moeda (BRL).
+         */
+        formatCurrency: function (value) {
+            if (value == null || value === "") return "R$ 0,00";
+            var n = parseFloat(value);
+            if (isNaN(n)) return "R$ 0,00";
+            return "R$ " + n.toFixed(2).replace(".", ",").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
+        },
+
+        /**
+         * Formata valor numérico com separador de milhar.
+         */
+        formatNumber: function (value) {
+            if (value == null || value === "") return "0";
+            var n = parseFloat(value);
+            if (isNaN(n)) return "0";
+            return n.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
         }
     };
 

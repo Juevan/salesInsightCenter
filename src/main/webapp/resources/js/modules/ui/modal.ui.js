@@ -72,16 +72,18 @@
                     var logoUrl = WCMAPI.serverURL + '/portal/api/servlet/image/00001/custom/logo_image.png';
                     var status = (pedidoRow && pedidoRow.STATUS) ? String(pedidoRow.STATUS).trim() : "-";
                     var total = (pedidoRow && pedidoRow.TOTAL) ? String(pedidoRow.TOTAL).trim() : "-";
+                    var qtd = (pedidoRow && pedidoRow.UNIDADE_VENDIDAS) ? String(pedidoRow.UNIDADE_VENDIDAS).trim() : "-";
 
                     var headerHTML =
                         '<div class="row fs-v-margin-small">' +
-                        '<div class="col-sm-6 col-xs-12 fs-v-margin-small-bottom text-center-xs">' +
+                        '<div class="col-sm-4 col-xs-12 fs-v-margin-small-bottom text-center-xs">' +
                         '<img src="' + logoUrl + '" style="max-height: 42px; width: auto;" alt="Logo" class="fs-v-margin-xsmall-top">' +
                         '</div>' +
-                        '<div class="col-sm-6 col-xs-12 text-right text-center-xs">' +
+                        '<div class="col-sm-8 col-xs-12 text-right text-center-xs">' +
                         '<h3 class="fs-no-margin fs-txt-bold">Solicitação #' + numSolic + '</h3>' +
                         '<div class="header-info-badges fs-v-margin-xsmall-top">' +
-                        '<span class="fs-txt-bold fs-display-block-xs">Valor Total: ' + PedidoUtils.escapeHtml(total) + '</span>' +
+                        '<span class="fs-txt-bold fs-display-block-xs">Qtd: ' + PedidoUtils.escapeHtml(qtd) + '</span>' +
+                        '<span class="fs-txt-bold fs-display-block-xs fs-sm-margin-left">Valor Total: ' + PedidoUtils.escapeHtml(total) + '</span>' +
                         '<span class="label label-info fs-sm-margin-left label-status-header">' + PedidoUtils.escapeHtml(status) + '</span>' +
                         '</div>' +
                         '</div>' +
@@ -226,33 +228,47 @@
 
         _generateDashboardHTML: function (pedidoRow) {
             if (!pedidoRow) return '<p class="text-muted italic">Dados não disponíveis.</p>';
+
+            var processo = (pedidoRow.PROCESSO || "").trim().toUpperCase();
+            var isVendaDireta = (processo === "VENDA DIRETA");
+            var isVendaConsignada = (processo === "VENDA CONSIGNADA");
+
             var fields = [
                 { k: 'CLIENTE', l: 'Cliente', size: 12 },
                 { k: 'COORDENADOR', l: 'Coordenador', size: 4 },
                 { k: 'GERENTE', l: 'Gerente', size: 4 },
                 { k: 'EXECUTIVO', l: 'Executivo(a)', size: 4 },
                 { k: 'PROCESSO', l: 'Processo', size: 4 },
-                { k: 'CIRURGIA', l: 'Cirurgia', size: 4 },
-                { k: 'PEDIDO', l: 'Pedido', size: 2 },
-                { k: 'NF', l: 'NF', size: 2 },
-                { k: 'TOTAL', l: 'Valor Total', size: 4 },
+                { k: 'PEDIDO', l: 'Pedido', size: 4 },
+                { k: 'NF', l: 'NF', size: 4 },
                 { k: 'CONDICAO_PAGAMENTO', l: 'Condição de Pagamento', size: 6 },
                 { k: 'TABELA_PRECOS', l: 'Tabela de Preço', size: 6 },
-                { k: 'UNIDADE_VENDIDAS', l: 'Unidades Vendidas', size: 3 },
+
+                // Datas no final
                 { k: 'DATA_SOLICITACAO', l: 'Data Solicitação', size: 3 },
                 { k: 'EMISSAO', l: 'Emissão', size: 3 },
                 { k: 'EXPEDICAO', l: 'Expedição', size: 3 }
             ];
 
+            // Lógica condicional de datas
+            if (isVendaDireta) {
+                fields.push({ k: 'ENTREGA', l: 'Data Entrega', size: 3 });
+            } else if (isVendaConsignada) {
+                fields.push({ k: 'CIRURGIA', l: 'Data Cirurgia', size: 3 });
+            } else {
+                // Caso existam outros processos, mostramos ambos se preenchidos
+                fields.push({ k: 'ENTREGA', l: 'Entrega', size: 3 });
+                fields.push({ k: 'CIRURGIA', l: 'Cirurgia', size: 3 });
+            }
+
             var html = '<div class="row">';
             fields.forEach(function (f) {
                 var val = (pedidoRow[f.k] != null && String(pedidoRow[f.k]).trim() !== '') ? String(pedidoRow[f.k]).trim() : '-';
-                var labelClass = (f.k === 'TOTAL' || f.k === 'CLIENTE') ? 'fs-txt-bold text-primary' : 'fs-txt-bold';
-                var valueClass = f.k === 'TOTAL' ? 'fs-txt-bold' : '';
+                var labelClass = (f.k === 'CLIENTE') ? 'fs-txt-bold text-primary' : 'fs-txt-bold';
 
                 html += '<div class="col-md-' + f.size + ' col-sm-6 fs-v-margin-xsmall">' +
                     '<label class="' + labelClass + '">' + PedidoUtils.escapeHtml(f.l) + '</label>' +
-                    '<p class="form-control-static ' + valueClass + '">' + PedidoUtils.escapeHtml(val) + '</p>' +
+                    '<p class="form-control-static">' + PedidoUtils.escapeHtml(val) + '</p>' +
                     '</div>';
             });
             html += '</div>';

@@ -10,21 +10,24 @@
          */
         getStatusPill: function (statusValue) {
             var s = (statusValue && statusValue.trim) ? statusValue.trim() : '';
-            var label, cssClass;
+            var cssClass;
             switch (s) {
-                case "CANCELADO": label = "Cancelado"; cssClass = "status-pill--cancelado"; break;
-                case "VALIDACAO DE PAGAMENTO": label = "Validação de pagamento"; cssClass = "status-pill--validacao"; break;
-                case "AGUARDANDO DISPONIBILIDADE": label = "Aguardando disponibilidade"; cssClass = "status-pill--aguardando"; break;
-                case "APROVACAO COMERCIAL": label = "Aprovação comercial"; cssClass = "status-pill--aprovacao"; break;
-                case "EM SEPARACAO": label = "Em separação"; cssClass = "status-pill--separacao"; break;
-                case "AGUARDANDO FATURAMENTO": label = "Aguardando faturamento"; cssClass = "status-pill--faturamento"; break;
-                case "PEDIDO ENVIADO": label = "Pedido enviado"; cssClass = "status-pill--enviado"; break;
-                case "ENTREGA REALIZADA": label = "Entrega realizada"; cssClass = "status-pill--entregue"; break;
-                case "ANALISE DE CREDITO": label = "Análise de crédito"; cssClass = "status-pill--credito"; break;
-                case "REPROVADO": label = "Reprovado"; cssClass = "status-pill--reprovado"; break;
-                default: label = "—"; cssClass = "status-pill--default"; break;
+                case "CANCELADO": cssClass = "status-pill--cancelado"; break;
+                case "VALIDACAO DE PAGAMENTO":
+                case "VALID. PG": cssClass = "status-pill--validacao"; break;
+                case "AGUARDANDO DISPONIBILIDADE":
+                case "AGUARD. DISPONIBILIDADE": cssClass = "status-pill--aguardando"; break;
+                case "APROVACAO COMERCIAL": cssClass = "status-pill--aprovacao"; break;
+                case "EM SEPARACAO": cssClass = "status-pill--separacao"; break;
+                case "AGUARDANDO FATURAMENTO": cssClass = "status-pill--faturamento"; break;
+                case "PEDIDO ENVIADO": cssClass = "status-pill--enviado"; break;
+                case "ENTREGA REALIZADA": cssClass = "status-pill--entregue"; break;
+                case "ANALISE DE CREDITO": cssClass = "status-pill--credito"; break;
+                case "REPROVADO": cssClass = "status-pill--reprovado"; break;
+                default: cssClass = "status-pill--default"; break;
             }
-            return '<span class="status-pill ' + cssClass + '">' + label + '</span>';
+            var label = s || "—";
+            return '<span class="status-pill ' + cssClass + '">' + PedidoUtils.escapeHtml(label) + '</span>';
         },
 
         /**
@@ -45,6 +48,8 @@
                 { key: "SOLICITACAO", label: "Solicitação" },
                 { key: "DATA_SOLICITACAO", label: "Data" },
                 { key: "CLIENTE", label: "Cliente" },
+                { key: "UNIDADE_VENDIDAS", label: "Qtd. Total" },
+                { key: "TOTAL", label: "Valor Total" },
                 { key: "EXECUTIVO", label: "Executivo" },
                 { key: "PROCESSO", label: "Processo" }
             ];
@@ -75,6 +80,10 @@
                     } else if (col.key === "SOLICITACAO") {
                         var link = PedidoUtils.generatorLinkSolic(cellVal);
                         parts.push("<td class='row ", colClass, "'><a href='", PedidoUtils.escapeHtml(link), "'>", PedidoUtils.escapeHtml(cellVal), "</a></td>");
+                    } else if (col.key === "TOTAL") {
+                        parts.push("<td class='row ", colClass, "'>", PedidoUtils.formatCurrency(cellVal), "</td>");
+                    } else if (col.key === "UNIDADE_VENDIDAS") {
+                        parts.push("<td class='row ", colClass, "'>", PedidoUtils.formatNumber(cellVal), "</td>");
                     } else {
                         parts.push("<td class='row ", colClass, "'>", PedidoUtils.escapeHtml(cellVal), "</td>");
                     }
